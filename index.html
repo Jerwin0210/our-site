@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirsty & Jet 💙</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container">
+    <header>
+      <h1>Kirsty & Jet <span id="titleHeart">💙</span></h1>
+      <p>A little corner of the internet, just for us.</p>
+    </header>
+
+    <section>
+      <h2>Our Interests 🌸</h2>
+      <div class="tags">
+        <span class="tag">🎬 Movies</span>
+        <span class="tag">🍜 Food Trips</span>
+        <span class="tag">🎵 Music</span>
+        <span class="tag">📸 Photography</span>
+        <span class="tag">🎮 Gaming</span>
+        <span class="tag">☕ Coffee Dates</span>
+        <span class="tag">🌅 Sunsets</span>
+        <span class="tag">📚 Reading</span>
+        <span class="tag">🌃 City Lights</span>
+        <span class="tag">🎉 Sponty Events</span>
+        <span class="tag">🚗 Roadtrips</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Our Bucket List 🪣✨</h2>
+      <ul class="bucket-list" id="bucketList"></ul>
+      <div class="add-item">
+        <input type="text" id="newItem" placeholder="Add a new dream...">
+        <button onclick="addItem()" id="addBucketBtn">Add 💙</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Our Calendar 📅</h2>
+      <div class="calendar-nav">
+        <button onclick="changeMonth(-1)">‹</button>
+        <span id="calMonth"></span>
+        <button onclick="changeMonth(1)">›</button>
+      </div>
+      <div class="calendar-grid" id="calGrid"></div>
+      <div class="event-list" id="eventList"></div>
+      <div class="add-event">
+        <input type="text" id="newEvent" placeholder="Add a date or event...">
+        <button onclick="addEvent()" id="addEventBtn">Add 📅</button>
+      </div>
+    </section>
+
+    <footer>Made with <span id="footerHeart">💙</span></footer>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="assets/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="music-btn" id="musicBtn" title="Play/Pause Music">🎵</button>
+  <button class="palette-btn" id="paletteBtn" title="Change Theme">🎨</button>
+  <div class="palette-panel" id="palettePanel"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
