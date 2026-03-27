@@ -196,6 +196,11 @@ window.addEventListener('load', () => {
   }, 1500);
 });
 
+// ── Loader ──
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1500);
+});
+
 // ── Cursor Sparkle ──
 document.addEventListener('mousemove', e => {
   const s = document.createElement('span');
