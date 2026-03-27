@@ -52,7 +52,8 @@
       <h2>Our Calendar 📅</h2>
       <div class="calendar-nav">
         <button onclick="changeMonth(-1)">‹</button>
-        <span id="calMonth"></span>
+        <select id="calMonthSelect" onchange="setMonth(this.value)"></select>
+        <select id="calYearSelect" onchange="setYear(this.value)"></select>
         <button onclick="changeMonth(1)">›</button>
       </div>
       <div class="calendar-grid" id="calGrid"></div>

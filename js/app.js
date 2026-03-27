@@ -66,7 +66,7 @@ Object.keys(themes).forEach(name => {
   b.className = 'palette-option';
   b.dataset.name = name;
   b.innerHTML = `<span class="palette-swatch" style="background:${themes[name].swatch}"></span>${name}`;
-  b.onclick = () => applyTheme(name);
+  b.onclick = () => { applyTheme(name); panel.classList.remove('open'); };
   panel.appendChild(b);
 });
 
@@ -74,18 +74,7 @@ document.getElementById('paletteBtn').addEventListener('click', () => panel.clas
 applyTheme(localStorage.getItem('theme') || 'Sky Blue');
 
 // ── Bucket List ──
-const defaults = [
-  'Watch the Northern Lights together',
-  'Travel to Japan during cherry blossom season',
-  'Learn to cook a new dish every month',
-  'Go stargazing in the mountains',
-  'Build a blanket fort and binge-watch our fave series',
-  'Ride a hot air balloon',
-  'Write letters to our future selves',
-  'Adopt a pet together'
-];
-let bucketData = JSON.parse(localStorage.getItem('bucketList')) ||
-  defaults.map(t => ({ text: t, done: false }));
+let bucketData = JSON.parse(localStorage.getItem('bucketList')) || [];
 
 function saveBucket() { localStorage.setItem('bucketList', JSON.stringify(bucketData)); }
 
@@ -138,7 +127,13 @@ function saveEvents() { localStorage.setItem('calEvents', JSON.stringify(calEven
 
 function renderCal() {
   const y = calDate.getFullYear(), m = calDate.getMonth();
-  document.getElementById('calMonth').textContent = calDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+  const monthSel = document.getElementById('calMonthSelect');
+  const yearSel = document.getElementById('calYearSelect');
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  monthSel.innerHTML = months.map((n,i) => `<option value="${i}"${i===m?' selected':''}>${n}</option>`).join('');
+  const curY = new Date().getFullYear();
+  yearSel.innerHTML = '';
+  for (let yr = curY - 5; yr <= curY + 10; yr++) yearSel.innerHTML += `<option value="${yr}"${yr===y?' selected':''}>${yr}</option>`;
   const grid = document.getElementById('calGrid');
   grid.innerHTML = '';
   ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
@@ -159,6 +154,9 @@ function renderCal() {
   }
   if (selectedDate) renderEvents();
 }
+
+function setMonth(m) { calDate.setMonth(parseInt(m)); selectedDate = null; renderCal(); }
+function setYear(y) { calDate.setFullYear(parseInt(y)); selectedDate = null; renderCal(); }
 
 function renderEvents() {
   const el = document.getElementById('eventList');
