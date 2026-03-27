@@ -57,6 +57,7 @@ function applyTheme(name) {
   document.title = 'Kirsty & Jet ' + h;
   document.getElementById('addBucketBtn').textContent = 'Add ' + h;
   document.getElementById('addEventBtn').textContent = 'Add ' + h;
+  document.querySelector('.loader-heart').textContent = h;
 }
 
 const panel = document.getElementById('palettePanel');
@@ -188,6 +189,14 @@ function changeMonth(dir) { calDate.setMonth(calDate.getMonth() + dir); selected
 
 document.getElementById('newEvent').addEventListener('keydown', e => { if (e.key === 'Enter') addEvent(); });
 renderCal();
+
+// ── Loader ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    setTimeout(() => document.querySelector('.container').classList.add('visible'), 400);
+  }, 1500);
+});
 
 // ── Cursor Sparkle ──
 document.addEventListener('mousemove', e => {
