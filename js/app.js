@@ -217,16 +217,15 @@ const audio = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 let playing = false;
 
-function startMusic() {
+function tryAutoplay() {
   if (!playing) {
     audio.play().then(() => { playing = true; musicBtn.textContent = '⏸'; }).catch(() => {});
   }
-  document.removeEventListener('click', startMusic);
+  ['click','touchstart','keydown'].forEach(e => document.removeEventListener(e, tryAutoplay, true));
 }
-document.addEventListener('click', startMusic);
+['click','touchstart','keydown'].forEach(e => document.addEventListener(e, tryAutoplay, true));
 
-musicBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
+musicBtn.addEventListener('click', () => {
   if (playing) { audio.pause(); musicBtn.textContent = '🎵'; playing = false; }
   else { audio.play().catch(() => {}); musicBtn.textContent = '⏸'; playing = true; }
 });
