@@ -216,8 +216,17 @@ document.addEventListener('mousemove', e => {
 const audio = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 let playing = false;
-musicBtn.addEventListener('click', () => {
-  if (playing) { audio.pause(); musicBtn.textContent = '🎵'; }
-  else { audio.play().catch(() => {}); musicBtn.textContent = '⏸'; }
-  playing = !playing;
+
+function startMusic() {
+  if (!playing) {
+    audio.play().then(() => { playing = true; musicBtn.textContent = '⏸'; }).catch(() => {});
+  }
+  document.removeEventListener('click', startMusic);
+}
+document.addEventListener('click', startMusic);
+
+musicBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (playing) { audio.pause(); musicBtn.textContent = '🎵'; playing = false; }
+  else { audio.play().catch(() => {}); musicBtn.textContent = '⏸'; playing = true; }
 });
