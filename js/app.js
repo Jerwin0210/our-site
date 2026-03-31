@@ -216,16 +216,18 @@ document.addEventListener('mousemove', e => {
 const audio = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 let playing = false;
+let autoplayDone = false;
 
 function tryAutoplay() {
-  if (!playing) {
-    audio.play().then(() => { playing = true; musicBtn.textContent = '⏸'; }).catch(() => {});
-  }
+  if (autoplayDone) return;
+  autoplayDone = true;
+  audio.play().then(() => { playing = true; musicBtn.textContent = '⏸'; }).catch(() => { autoplayDone = false; });
   ['click','touchstart','keydown'].forEach(e => document.removeEventListener(e, tryAutoplay, true));
 }
 ['click','touchstart','keydown'].forEach(e => document.addEventListener(e, tryAutoplay, true));
 
 musicBtn.addEventListener('click', () => {
+  if (!autoplayDone) return; // let autoplay handle first click
   if (playing) { audio.pause(); musicBtn.textContent = '🎵'; playing = false; }
   else { audio.play().catch(() => {}); musicBtn.textContent = '⏸'; playing = true; }
 });
