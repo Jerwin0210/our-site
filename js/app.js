@@ -218,6 +218,6 @@ const musicBtn = document.getElementById('musicBtn');
 let playing = false;
 musicBtn.addEventListener('click', () => {
   if (playing) { audio.pause(); musicBtn.textContent = '🎵'; }
-  else { audio.play().catch(e => alert('Audio error: ' + e.message)); musicBtn.textContent = '⏸'; }
+  else { audio.play().catch(() => {}); musicBtn.textContent = '⏸'; }
   playing = !playing;
 });
